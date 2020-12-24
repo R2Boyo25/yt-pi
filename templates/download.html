@@ -1,0 +1,13 @@
+<head>
+    <title>Add Youtube Video</title>
+</head>
+<body>
+    <form action="" method="post" align='center'>
+        <input type="text" placeholder="URL" name="url" value="{{
+            request.form.url }}">
+        <input class="btn btn-default" type="submit" value="Download">
+    </form>
+    {% if error %}
+        <p class="error" align='center'><strong>Error:</strong> {{ error }}
+    {% endif %}
+</body>
