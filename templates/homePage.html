@@ -1,43 +1,6 @@
 <head>
     <title>YT-Pi Home</title>
-    <style>
-        .footer{
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            border-color: black;
-            border-width: medium;
-            }
-            
-        button {
-         background-color: #bbb;
-         padding: .5em;
-         -moz-border-radius: 5px;
-         -webkit-border-radius: 5px;
-         border-radius: 6px;
-         color: #fff;
-         font-family: 'Oswald';
-         font-size: 20px;
-         text-decoration: none;
-         border: none;
-        }
-        
-        /* .noback {
-            background-color: fbfbfb;
-        } */
-        
-        .wide {
-            width: 30%;
-        }
-        
-        button:hover {
-         border: none;
-         background: orange;
-         box-shadow: 0px 0px 1px #777;
-         border-radius: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="/data/main.css">
 </head>
 <body>
     <h1 align=center ><b>YT-Pi</b></h1>
@@ -49,7 +12,7 @@
     <div class='footer' align='center'>
         <button onclick="window.location.href='https://github.com/r2boyo25/yt-pi';" >YT-Pi {{ version }}</button>
         <div align=right >
-            <button onclick="window.location.href='/credits';" class='noback' height=2% width=10%>
+            <button onclick="window.location.href='/credits';" height=2% width=10%>
                 <img src=/data/information.png height=50 width=50/>
             </button>
         </div>

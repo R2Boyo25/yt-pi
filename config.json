@@ -1,5 +1,5 @@
 {
     "port" : 4215,
-    "version" : "1.0",
-    "videofolder" : "/media/pi/Backups1/yt-pi/videos"
+    "version" : "1.1",
+    "videofolder" : "/media/pi/Backups/yt-pi/videos"
 }

@@ -1,0 +1,35 @@
+
+@font-face {
+    font-family: "ar-destine";
+    src: url("/data/FontsFree-Net-ARDESTINE.ttf");
+}
+
+p {
+    background-color: #bbb;
+    border-radius: 6px;
+    font-size: 20px;
+    font-family: 'ar-destine';
+    width: 25%;
+    align: center;
+    text-decoration: none;
+    border: 2px solid black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input[type=text] {
+    color: black;
+    border-radius: 15px;
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+textarea {
+    color: black;
+    border-radius: 15px;
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
