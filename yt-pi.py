@@ -21,11 +21,20 @@ def eflash(error, back, title="Error!", backt=None, extra=None):
 def CoSo(version):
     version = str(version)
     
-    return render_template("comingSoon.html", ver=version)
+    return render_template("comingSoon.html", ver=version, background=database.Database("config.json").get('background'))
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def homePage():
-    return render_template('homePage.html', version=database.Database("config.json").get("version"))
+
+    try:
+
+        popup = request.args['popup']
+
+    except Exception as e:
+
+        popup = None
+
+    return render_template('homePage.html', version=database.Database("config.json").get("version"), popup = popup, background=database.Database("config.json").get('background'))
 
 @app.route('/data/<path:filename>/')
 def returnData(filename):
@@ -47,7 +56,7 @@ def videosList():
         
     links.append('</ul></div>')
     
-    return render_template('videos.html', links=''.join(links))
+    return render_template('videos.html', links=''.join(links), background=database.Database("config.json").get('background'))
 
 @app.route('/videos/<video>')
 def videoPage(video):
@@ -78,7 +87,7 @@ def videoPage(video):
             
             if file.endswith('.mp4') or file.endswith('.webm'):
                 
-                return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=desc.replace("\n", "\n<br>"), title=video)
+                return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=desc.replace("\n", "\n<br>"), title=video, background=database.Database("config.json").get('background'))
         
         break
 
@@ -108,11 +117,11 @@ def videourlpagething(folder, file):
 
 @app.route('/credits/')
 def creditsPage():
-    return render_template('credits.html')
+    return render_template('credits.html', background=database.Database("config.json").get('background'))
 
 @app.route('/add/')
 def addVideoPage():
-    return render_template('addVideo.html')
+    return render_template('addVideo.html', background=database.Database("config.json").get('background'))
 
 @app.route('/add/yt/', methods=['GET', 'POST']) 
 def downloadYtVideo():
@@ -128,11 +137,11 @@ def downloadYtVideo():
             
         else:
             
-            return render_template('download.html', error='You must specify a URL!')
+            return render_template('download.html', error='You must specify a URL!', background=database.Database("config.json").get('background'))
         
     else:
         
-        return render_template("download.html")
+        return render_template("download.html", background=database.Database("config.json").get('background'))
 
 @app.route('/add/upload/', methods=['GET', 'POST'])
 def uploadLocalVideo():
@@ -170,14 +179,30 @@ def uploadLocalVideo():
         
     else:
         
-        return render_template("upload.html")
+        return render_template("upload.html", background=database.Database("config.json").get('background'))
 
-@app.route('/settings/')
+@app.route('/settings/', methods=['GET', 'POST'])
 def settingsPage():
-    return CoSo(1.2)
+
+    if request.method == 'POST':
+
+        config = database.Database("config.json")
+
+        for field in request.form:
+
+            config.set(field, request.form[field])
+
+        return redirect("/?popup=Settings%20Successfully%20Saved")
+
+    else:
+
+        config = database.Database("config.json")
+        
+        return render_template("settings.html", config=config, background=database.Database("config.json").get('background'))
 
 @app.errorhandler(404)
 def page_not_found(e):
+<<<<<<< HEAD
     
     return eflash(e, url_for("homePage"), "404: Not Found", "Go Home", "Feature you want added? Submit a request at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>")
 
@@ -189,6 +214,13 @@ def bad_requesthandler(e):
     return eflash(e, url_for("homePage"), "404: Not Found", "Go Home", "Submit a bug report at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>")
 
     #return render_template('400.html', error=e)
+=======
+    return render_template('404.html', error=e, background=database.Database("config.json").get('background'))
+
+@app.errorhandler(400)
+def bad_requesthandler(e):
+    return render_template('400.html', error=e, background=database.Database("config.json").get('background'))
+>>>>>>> 8054d15e2096892e6f0c82e8c4015f7f4326fa03
 
 if __name__ == "__main__":
 
