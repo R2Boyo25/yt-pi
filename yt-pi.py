@@ -10,6 +10,14 @@ app.config['DataFolder'] = "/".join(os.path.abspath(__file__).split("/")[:-1]) +
 
 app.secret_key = os.urandom(24)
 
+def eflash(error, back, title="Error!", backt=None, extra=None):
+
+    extra = extra if extra else ""
+
+    backt = backt if backt else ""
+
+    return render_template("error.html", e=error, url=back, error=title, urlt=backt, extra=extra)
+
 def CoSo(version):
     version = str(version)
     
@@ -83,7 +91,7 @@ def videoPageThumb(video):
         
         for file in files:
             
-            if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.webp'):
+            if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.webp') or file.endswith('.jpeg'):
                 
                 return send_from_directory(database.Database("config.json").get("videofolder") + "/" + video + "/",
                             file)
@@ -132,24 +140,30 @@ def uploadLocalVideo():
     if request.method == 'POST':
 
         if 'file' not in request.files:
-            return "No file part: \n" + str( request.files )
-            flash('No file part')
-            return redirect(request.url)
+            return eflash('No selected file', request.url)
+
         file = request.files['file']
+
         if file.filename == '':
-            return "No selected file"
-            flash('No selected file')
-            return redirect(request.url)
+        
+            return eflash('No selected file', request.url)
+
         elif request.form['title'] == '':
-            return "Title is required"
-            flash('Title is required')
-            return redirect(request.url)
+
+            return eflash('Title is required', request.url)
+
         else:
+
             filename = secure_filename(file.filename)
-            os.mkdir(database.Database("config.json").get("videofolder")+"/"+request.form['title'])
-            file.save(os.path.join(database.Database("config.json").get("videofolder")+"/"+request.form['title'], filename))
-            with open(database.Database("config.json").get("videofolder")+"/"+request.form['title']+'/'+request.form['title']+".description", 'w') as file1:
+
+            os.mkdir(database.Database("config.json").get("videofolder") + "/" + request.form['title'])
+
+            file.save(os.path.join(database.Database("config.json").get("videofolder") + "/"+request.form['title'], filename))
+
+            with open(database.Database("config.json").get("videofolder") + "/"+request.form['title'] + '/' + request.form['title'] + ".description", 'w') as file1:
+
                 file1.write(request.form['nm'])
+
             return redirect('/videos/{}'.format(request.form['title']))
         
         return "Nothing happened???"
@@ -164,11 +178,17 @@ def settingsPage():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html', error=e)
+    
+    return eflash(e, url_for("homePage"), "404: Not Found", "Go Home", "Feature you want added? Submit a request at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>")
+
+    #return render_template('404.html', error=e)
 
 @app.errorhandler(400)
 def bad_requesthandler(e):
-    return render_template('400.html', error=e)
+
+    return eflash(e, url_for("homePage"), "404: Not Found", "Go Home", "Submit a bug report at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>")
+
+    #return render_template('400.html', error=e)
 
 if __name__ == "__main__":
 
