@@ -1,6 +1,6 @@
 from flask import Flask, abort, render_template, redirect, url_for, request, session, send_from_directory, flash, jsonify
 from markupsafe import escape
-import random, os, database, json
+import random, os, database, json, requests
 from werkzeug.utils import secure_filename
 
 # create the application object
@@ -9,6 +9,14 @@ app = Flask(__name__)
 app.config['DataFolder'] = "/".join(os.path.abspath(__file__).split("/")[:-1]) + "/" + "data"
 
 app.secret_key = os.urandom(24)
+
+def programExists(name):
+    """Check whether `name` is on PATH and marked as executable."""
+
+    # from whichcraft import which
+    from shutil import which
+
+    return which(name) is not None
 
 def eflash(error, back, title="Error!", backt=None, extra=None):
 
@@ -146,6 +154,10 @@ def downloadYtVideo():
 @app.route('/add/upload/', methods=['GET', 'POST'])
 def uploadLocalVideo():
 
+    if not programExists("youtube-dl"):
+
+        return eflash('youtube-dl is not installed or is not on your PATH.', request.url)
+
     if request.method == 'POST':
 
         if 'file' not in request.files:
@@ -215,5 +227,21 @@ def bad_requesthandler(e):
     #return render_template('400.html', error=e)
 
 if __name__ == "__main__":
+
+    currentConfig = json.loads(requests.get("https://raw.githubusercontent.com/R2Boyo25/yt-pi/master/config.json").text)
+
+    if float(currentConfig["version"]) > database.Database("config.json").get('version'):
+
+        if not ("/" + ( os.path.abspath(database.Database("config.json").get("videofolder")).split("/") ) in os.path.abspath("yt-pi.py")):
+
+            os.chdir("./..")
+
+            os.system("rm -r yt-pi")
+
+            os.system("git clone https://github.com/r2boyo25/yt-pi")
+            
+            os.chdir("yt-pi")
+
+            os.execv('python3', ['python3', "yt-pi.py"])
 
     app.run(debug=True, host='0.0.0.0', port=database.Database("config.json").get("port"))
