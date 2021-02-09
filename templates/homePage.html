@@ -2,7 +2,30 @@
     <title>YT-Pi Home</title>
     <link rel="stylesheet" href="/data/main.css">
 </head>
-<body>
+<body style="background-color: {{background}};">
+
+    <script>
+        // Get all elements with class="closebtn"
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+        
+        // Loop through all close buttons
+        for (i = 0; i < close.length; i++) {
+          // When someone clicks on a close button
+          close[i].onclick = function(){
+        
+            // Get the parent of <span class="closebtn"> (<div class="alert">)
+            var div = this.parentElement;
+        
+            // Set the opacity of div to 0 (transparent)
+            div.style.opacity = "0";
+        
+            // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+          }
+        }
+    </script>
+
     <h1 align=center ><b>YT-Pi</b></h1>
     <div align=center >
         <a align=center ><button align=center onclick="window.location.href='/videos';" class='wide'>Videos</button></a><br><br>
@@ -10,6 +33,12 @@
         <a align=center ><button align=center onclick="window.location.href='/settings';" class='wide'>Settings</button></a><br><br>
     </div>
     <div class='footer' align='center'>
+        {% if popup %}
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ popup }}
+        </div>
+        {% endif %}
         <button onclick="window.location.href='https://github.com/r2boyo25/yt-pi';" >YT-Pi {{ version }}</button>
         <div align=right >
             <button onclick="window.location.href='/credits';" height=2% width=10%>
