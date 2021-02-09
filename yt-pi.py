@@ -230,18 +230,16 @@ if __name__ == "__main__":
 
     currentConfig = json.loads(requests.get("https://raw.githubusercontent.com/R2Boyo25/yt-pi/master/config.json").text)
 
-    if float(currentConfig["version"]) > database.Database("config.json").get('version'):
+    if float(currentConfig["version"]) > float(database.Database("config.json").get('version')):
 
-        if not ("/" + ( os.path.abspath(database.Database("config.json").get("videofolder")).split("/") ) in os.path.abspath("yt-pi.py")):
+        if not ("/" + ( '/'.join(os.path.abspath(database.Database("config.json").get("videofolder")).split("/")) ) in os.path.abspath("yt-pi.py")):
 
             os.chdir("./..")
 
-            os.system("rm -r yt-pi")
+            os.system("rm -rf yt-pi")
 
             os.system("git clone https://github.com/r2boyo25/yt-pi")
             
             os.chdir("yt-pi")
-
-            os.execv('python3', ['python3', "yt-pi.py"])
 
     app.run(debug=True, host='0.0.0.0', port=database.Database("config.json").get("port"))
