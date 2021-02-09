@@ -202,7 +202,6 @@ def settingsPage():
 
 @app.errorhandler(404)
 def page_not_found(e):
-<<<<<<< HEAD
     
     return eflash(e, url_for("homePage"), "404: Not Found", "Go Home", "Feature you want added? Submit a request at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>")
 
@@ -214,13 +213,6 @@ def bad_requesthandler(e):
     return eflash(e, url_for("homePage"), "404: Not Found", "Go Home", "Submit a bug report at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>")
 
     #return render_template('400.html', error=e)
-=======
-    return render_template('404.html', error=e, background=database.Database("config.json").get('background'))
-
-@app.errorhandler(400)
-def bad_requesthandler(e):
-    return render_template('400.html', error=e, background=database.Database("config.json").get('background'))
->>>>>>> 8054d15e2096892e6f0c82e8c4015f7f4326fa03
 
 if __name__ == "__main__":
 
