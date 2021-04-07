@@ -133,6 +133,11 @@ def addVideoPage():
 
 @app.route('/add/yt/', methods=['GET', 'POST']) 
 def downloadYtVideo():
+
+    if not programExists("youtube-dl"):
+
+        return eflash('youtube-dl is not installed or is not on your PATH.', request.url)
+
     if request.method == 'POST':
         
         url = request.form['url']
@@ -151,12 +156,38 @@ def downloadYtVideo():
         
         return render_template("download.html", background=database.Database("config.json").get('background'))
 
-@app.route('/add/upload/', methods=['GET', 'POST'])
-def uploadLocalVideo():
+@app.route('/add/mp4/', methods=['GET', 'POST'])
+def downloadYtMP4():
 
     if not programExists("youtube-dl"):
 
         return eflash('youtube-dl is not installed or is not on your PATH.', request.url)
+
+    if request.method == 'POST':
+        
+        url = request.form['url']
+        
+        if url != '':
+            
+            if os.path.exists("download.mp4"):
+
+                os.rm("download.mp4")
+
+            os.system("python3 -m youtube_dl -f best -o " + "download0.mp4 " + url)
+            
+            return send_from_directory(".",
+                            "download0.mp4", as_attachment=True)
+            
+        else:
+            
+            return render_template('download.html', error='You must specify a URL!', background=database.Database("config.json").get('background'))
+        
+    else:
+        
+        return render_template("download.html", background=database.Database("config.json").get('background'))
+
+@app.route('/add/upload/', methods=['GET', 'POST'])
+def uploadLocalVideo():
 
     if request.method == 'POST':
 
