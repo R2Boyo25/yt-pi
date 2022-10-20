@@ -259,18 +259,23 @@ def bad_requesthandler(e):
 
 if __name__ == "__main__":
 
-    currentConfig = json.loads(requests.get("https://raw.githubusercontent.com/R2Boyo25/yt-pi/master/config.json").text)
+    try:
 
-    if float(currentConfig["version"]) > float(database.Database("config.json").get('version')):
+        currentConfig = json.loads(requests.get("https://raw.githubusercontent.com/R2Boyo25/yt-pi/master/config.json").text)
 
-        if not ("/" + ( '/'.join(os.path.abspath(database.Database("config.json").get("videofolder")).split("/")) ) in os.path.abspath("yt-pi.py")):
+        if float(currentConfig["version"]) > float(database.Database("config.json").get('version')):
 
-            os.chdir("./..")
+            if not ("/" + ( '/'.join(os.path.abspath(database.Database("config.json").get("videofolder")).split("/")) ) in os.path.abspath("yt-pi.py")):
 
-            os.system("rm -rf yt-pi")
+                os.chdir("./..")
 
-            os.system("git clone https://github.com/r2boyo25/yt-pi")
-            
-            os.chdir("yt-pi")
+                os.system("rm -rf yt-pi")
+
+                os.system("git clone https://github.com/r2boyo25/yt-pi")
+
+                os.chdir("yt-pi")
+
+    except Exception:
+        print("Cannot connect to github - update checker unavailable.")
 
     app.run(debug=True, host='0.0.0.0', port=database.Database("config.json").get("port"))
