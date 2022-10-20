@@ -1,30 +1,30 @@
-.footer{
+.footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     border-color: black;
     border-width: medium;
-    }
-    
+}
+
 button {
- background-color: #bbb;
- padding: .5em;
- -moz-border-radius: 5px;
- -webkit-border-radius: 5px;
- border-radius: 6px;
- color: #fff;
- font-family: 'Oswald';
- font-size: 20px;
- text-decoration: none;
- border: none;
+    background-color: #bbb;
+    padding: .5em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 6px;
+    color: #fff;
+    font-family: 'Oswald';
+    font-size: 20px;
+    text-decoration: none;
+    border: none;
 }
 
 button:hover {
- border: none;
- background: orange;
- box-shadow: 0px 0px 1px #777;
- border-radius: 8px;
+    border: none;
+    background: orange;
+    box-shadow: 0px 0px 1px #777;
+    border-radius: 8px;
 }
 
 a {
@@ -39,7 +39,7 @@ a {
     text-decoration: none;
     border: none;
 }
-   
+
 a:hover {
     border: none;
     background: orange;
@@ -53,11 +53,12 @@ a:hover {
 
 .alert {
     padding: 20px;
-    background-color: green; 
+    background-color: green;
     color: white;
     margin-bottom: 15px;
     opacity: 1;
-    transition: opacity 0.6s; /* 600ms to fade out */
+    transition: opacity 0.6s;
+    /* 600ms to fade out */
     width: 50%;
     border-radius: 8px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -74,12 +75,12 @@ a:hover {
     cursor: pointer;
     transition: 0.3s;
 }
-  
+
 /* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;
 }
 
-h1{
+h1 {
     color: white;
 }
