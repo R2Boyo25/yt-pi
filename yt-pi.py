@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 app.config['DataFolder'] = "/".join(
     os.path.abspath(__file__).split("/")[:-1]) + "/" + "data"
-print(app.config['DataFolder'])
+
 app.secret_key = os.urandom(24)
 youtubedl = False
 
@@ -102,8 +102,6 @@ def videoPage(video):
 @app.route('/videos/<video>/thumb')
 def videoPageThumb(video):
     for root, dirs, files in os.walk(getConfig().get("videofolder") + '/' + video):
-        print(files)
-
         for file in files:
             if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.webp') or file.endswith('.jpeg'):
                 return send_from_directory(getConfig().get("videofolder") + "/" + video + "/",

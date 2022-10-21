@@ -26,13 +26,6 @@
         }
     }
 </script>
-
-<h1 align=center><b>YT-Pi</b></h1>
-<div align=center>
-    <a align=center><button align=center onclick="window.location.href='/videos';" class='wide'>Videos</button></a><br><br>
-    <a align=center><button align=center onclick="window.location.href='/add';" class='wide'>Add Video</button></a><br><br>
-    <a align=center><button align=center onclick="window.location.href='/settings';" class='wide'>Settings</button></a><br><br>
-</div>
 <div class='footer' align='center'>
     {% if popup %}
     <div class="alert">
@@ -40,11 +33,5 @@
         {{ popup }}
     </div>
     {% endif %}
-    <button onclick="window.location.href='https://github.com/r2boyo25/yt-pi';">YT-Pi {{ version }}</button>
-    <div align=right>
-        <button onclick="window.location.href='/credits';" height=2% width=10%>
-            <img src=/data/information.png height=50 width=50 />
-        </button>
-    </div>
 </div>
 {% endblock %}
