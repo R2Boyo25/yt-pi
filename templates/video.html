@@ -9,6 +9,7 @@
         <source src="{{ path }}" type="video/webm">
     </video>
     <h1>{{ title | safe }}</h1>
+    <hr>
     <p><br>{{ description | safe | urlize(40, true) }}<br></p>
 </div>
 {% endblock %}
