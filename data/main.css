@@ -127,6 +127,7 @@ body {
 }
 
 .navmenu a {
+    text-align: center;
     width: 100%;
     background-color: #00000000;
     padding: 0px;
