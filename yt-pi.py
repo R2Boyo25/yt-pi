@@ -70,7 +70,7 @@ def videosList():
 
     for thing in f:
         links.append("\n  <li><a align='center' href='{}'><img src='{}' height=12% width=15% /><br><b>{}</b></a><br></li>".format(
-            '/videos/'+thing.replace("'", "%27"), '/videos/'+thing.replace("'", "%27")+'/thumb', thing))
+            '/videos/'+thing.replace("'", "%27").replace(" ", "%20"), '/videos/'+thing.replace("'", "%27").replace(" ", "%20")+'/thumb', thing))
 
     links.append('</ul></div>')
 
