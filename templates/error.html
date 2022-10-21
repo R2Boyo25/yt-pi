@@ -3,7 +3,7 @@
     <link rel='stylesheet' href='/data/form.css'>-->
     <title>Error!</title>
     <style>
-        p {
+        #errorbox {
             background-color: #bbb;
             border-radius: 6px;
             font-size: 20px;
@@ -19,16 +19,16 @@
 <body>
     <div align=center>
         <div align=center style="margin-top: 21%; margin-bottom: 50%;">
-            <p>
+            <p id="errorbox">
                 <br>
                 <span style="font-size: xx-large;"><b>{{ error }}</b></span>
                 <br>
                 {{ e }}
                 <br>
-                <a href="{{ url }}">{{ urlt }}</a>
-                <br>
                 {{ extra | safe }}
                 <br>
+                <br>
+                <p align='center'><a onclick="window.history.back()">Go back.</a></p>
                 <br>
             </p>
         </div>
