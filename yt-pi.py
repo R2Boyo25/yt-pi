@@ -13,6 +13,7 @@ app.config['DataFolder'] = "/".join(
     os.path.abspath(__file__).split("/")[:-1]) + "/" + "data"
 
 app.secret_key = os.urandom(24)
+youtubedl = False
 
 
 def getConfig():
@@ -21,9 +22,6 @@ def getConfig():
 
 def programExists(name):
     """Check whether `name` is on PATH and marked as executable."""
-
-    if not os.system("python3 -m youtube-dl"):
-        return True
 
     from shutil import which
 
@@ -134,7 +132,7 @@ def addVideoPage():
 
 @app.route('/add/yt/', methods=['GET', 'POST'])
 def downloadYtVideo():
-    if not programExists("youtube-dl"):
+    if not youtubedl:
         return showError('youtube-dl is not installed or is not on your PATH.', request.url)
 
     if request.method == 'POST':
@@ -155,7 +153,7 @@ def downloadYtVideo():
 
 @app.route('/add/mp4/', methods=['GET', 'POST'])
 def downloadYtMP4():
-    if not programExists("youtube-dl"):
+    if not youtubedl:
         return showError('youtube-dl is not installed or is not on your PATH.', request.url)
 
     if request.method == 'POST':
@@ -255,5 +253,7 @@ if __name__ == "__main__":
 
     except Exception:
         print("Cannot connect to github - update checker unavailable.")
+
+    youtubedl = not os.system("python3 -m pip freeze | grep youtube-dl")
 
     app.run(debug=True, host='0.0.0.0', port=getConfig().get("port"))
