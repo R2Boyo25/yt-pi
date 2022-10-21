@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 app.config['DataFolder'] = "/".join(
     os.path.abspath(__file__).split("/")[:-1]) + "/" + "data"
-
+print(app.config['DataFolder'])
 app.secret_key = os.urandom(24)
 youtubedl = False
 
@@ -28,10 +28,10 @@ def programExists(name):
     return which(name) is not None
 
 
-def showError(error, back, title="Error!", extra=None):
+def showError(error, back, title="Error!", extra=None, errorcode=500):
     extra = extra if extra else ""
 
-    return render_template("error.html", e=error, url=back, error=title, extra=extra)
+    return render_template("error.html", e=error, url=back, error=title, extra=extra), errorcode
 
 
 def CoSo(version):
@@ -51,7 +51,7 @@ def homePage():
     return render_template('homePage.html', version=getConfig().get("version"), popup=popup)
 
 
-@app.route('/data/<path:filename>/')
+@app.route('/data/<path:filename>')
 def returnData(filename):
     return send_from_directory(app.config['DataFolder'],
                                filename)
@@ -59,7 +59,7 @@ def returnData(filename):
 
 @app.route('/videos/')
 def videosList():
-    links = ['<!--This Page Was Auto Generated-->\n<div align=\"center\">\n<br>\n<a href=/ ><img src=/data/home.png height=17px /></a>  <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">\n<br><br><ul id="myMenu">']
+    links = ['<!--This Page Was Auto Generated-->\n<div align=\"center\">\n<br>\n<input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">\n<br><br><ul id="myMenu">']
     f = []
 
     for (dirpath, dirnames, filenames) in os.walk(getConfig().get("videofolder")):
@@ -228,12 +228,12 @@ def settingsPage():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return showError(e, url_for("homePage"), "404: Not Found", "Feature you want added? Submit a request at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>")
+    return showError(e, url_for("homePage"), "404: Not Found", "Feature you want added? Submit a request at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>", errorcode=404)
 
 
 @app.errorhandler(400)
 def bad_requesthandler(e):
-    return showError(e, url_for("homePage"), "404: Not Found", "Submit a bug report at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>")
+    return showError(e, url_for("homePage"), "404: Not Found", "Submit a bug report at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>", errorcode=400)
 
 
 if __name__ == "__main__":

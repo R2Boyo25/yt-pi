@@ -8,6 +8,16 @@
 </head>
 
 <body align=center>
+    <div class="navbar" align=left>
+        <a id="hamburger-menu" onclick="toggleDropdown();"><img src="/data/hamburger-menu.svg" width="34px" height="34px"></img></a>
+    </div>
+    <div class="navmenu" id="navmenu">
+        <a href="/" style="padding-top: 9px;">Home</a>
+        <a href="/videos">Videos</a>
+        <a href="/videos/new">Add Video</a>
+        <a href="/settings">Settings</a>
+    </div>
+    <script src="/data/dropdown.js"></script>
     <div class="main">
         {% block body %}
         {% endblock %}

@@ -32,3 +32,10 @@ textarea {
     margin: 8px 0;
     box-sizing: border-box;
 }
+
+#settings {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
