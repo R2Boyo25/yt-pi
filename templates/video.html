@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
 <div align=center>
-    <video width="98%" height="90%" controls poster="{{ path }}/thumb">
+    <video width="98%" height="90%" controls poster="{{ path }}/thumb" id="videoplayer">
         <source src="{{ path }}" type="video/mp4">
         <source src="{{ path }}" type="video/webm">
     </video>
@@ -12,4 +12,16 @@
     <hr>
     <p><br>{{ description | safe | urlize(40, true) }}<br></p>
 </div>
+
+<script>
+    function getParameter(key) {
+        address = window.location.search;
+        parameterList = new URLSearchParams(address);
+        return parameterList.get(key);
+    }
+
+    if (getParameter("t")) {
+        document.getElementById("videoplayer").currentTime = getParameter("t");
+    }
+</script>
 {% endblock %}
