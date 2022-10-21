@@ -1,8 +1,12 @@
+{% extends "maintemplate.html" %}
+{% block head %}
 <link rel="stylesheet" href="/data/main.css">
+{% endblock %}
+{% block body %}
 <br>
-<a href=/><img src=/data/home.png height=17px /></a>
+<a href= /><img src=/data/home.png height=17px /></a>
 <br><br>
-<div align=center style="background-color: {{background}};">
+<div align=center>
     <video width="98%" height="90%" controls poster="{{ path }}/thumb">
         <source src="{{ path }}" type="video/mp4">
         <source src="{{ path }}" type="video/webm">
@@ -10,3 +14,4 @@
     <h1>{{ title | safe }}</h1>
     <p><br>{{ description | safe | urlize(40, true) }}<br></p>
 </div>
+{% endblock %}

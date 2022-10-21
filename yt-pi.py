@@ -37,7 +37,7 @@ def showError(error, back, title="Error!", extra=None):
 def CoSo(version):
     version = str(version)
 
-    return render_template("comingSoon.html", ver=version, background=getConfig().get('background'))
+    return render_template("comingSoon.html", ver=version)
 
 
 @app.route("/", methods=['GET'])
@@ -48,7 +48,7 @@ def homePage():
     except Exception as e:
         popup = None
 
-    return render_template('homePage.html', version=getConfig().get("version"), popup=popup, background=getConfig().get('background'))
+    return render_template('homePage.html', version=getConfig().get("version"), popup=popup)
 
 
 @app.route('/data/<path:filename>/')
@@ -72,7 +72,7 @@ def videosList():
 
     links.append('</ul></div>')
 
-    return render_template('videos.html', links=''.join(links), background=getConfig().get('background'))
+    return render_template('videos.html', links=''.join(links))
 
 
 @app.route('/videos/<video>')
@@ -94,7 +94,7 @@ def videoPage(video):
     for root, dirs, files in os.walk(getConfig().get("videofolder") + '/' + video):
         for file in files:
             if file.endswith('.mp4') or file.endswith('.webm'):
-                return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=desc.replace("\n", "\n<br>"), title=video, background=getConfig().get('background'))
+                return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=desc.replace("\n", "\n<br>"), title=video)
 
         break
 
@@ -122,12 +122,12 @@ def videourlpagething(folder, file):
 
 @app.route('/credits/')
 def creditsPage():
-    return render_template('credits.html', background=getConfig().get('background'))
+    return render_template('credits.html')
 
 
 @app.route('/add/')
 def addVideoPage():
-    return render_template('addVideo.html', background=getConfig().get('background'))
+    return render_template('addVideo.html')
 
 
 @app.route('/add/yt/', methods=['GET', 'POST'])
@@ -145,10 +145,10 @@ def downloadYtVideo():
             return redirect('/')
 
         else:
-            return render_template('download.html', error='You must specify a URL!', background=getConfig().get('background'))
+            return render_template('download.html', error='You must specify a URL!')
 
     else:
-        return render_template("download.html", background=getConfig().get('background'))
+        return render_template("download.html")
 
 
 @app.route('/add/mp4/', methods=['GET', 'POST'])
@@ -170,10 +170,10 @@ def downloadYtMP4():
                                        "download0.mp4", as_attachment=True)
 
         else:
-            return render_template('download.html', error='You must specify a URL!', background=getConfig().get('background'))
+            return render_template('download.html', error='You must specify a URL!')
 
     else:
-        return render_template("download.html", background=getConfig().get('background'))
+        return render_template("download.html")
 
 
 @app.route('/add/upload/', methods=['GET', 'POST'])
@@ -207,7 +207,7 @@ def uploadLocalVideo():
         return "Nothing happened???"
 
     else:
-        return render_template("upload.html", background=getConfig().get('background'))
+        return render_template("upload.html")
 
 
 @app.route('/settings/', methods=['GET', 'POST'])
@@ -223,7 +223,7 @@ def settingsPage():
     else:
         config = getConfig()
 
-        return render_template("settings.html", config=config, background=getConfig().get('background'))
+        return render_template("settings.html", config=config)
 
 
 @app.errorhandler(404)

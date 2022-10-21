@@ -1,25 +1,25 @@
-<head>
-    <title>Add Youtube Video</title>
-    <link rel="stylesheet" href="/data/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='/data/form.css' </head>
-
-<body style="background-color: {{background}};">
-    <br><a href=/><img src=/data/home.png height=17px /></a>
-    <div align=center>
-        <form action="" method="post" align='center' style="margin-top: 23%; margin-bottom: 50%;">
-            <div align=center>
-                <p>
-                    <br>
-                    <input type="text" placeholder="URL" name="url" value="{{
+{% extends "maintemplate.html" %}
+{% block head %}
+<title>Add Youtube Video</title>
+<link rel="stylesheet" href="/data/main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel='stylesheet' href='/data/form.css' {% endblock %} {% block body %} <br><a href= /><img src=/data/home.png height=17px /></a>
+{% endblock %}
+{% block body %}
+<div align=center>
+    <form action="" method="post" align='center' style="margin-top: 23%; margin-bottom: 50%;">
+        <div align=center>
+            <p>
+                <br>
+                <input type="text" placeholder="URL" name="url" value="{{
                         request.form.url }}" height=5%>
-                    <button type="submit" class="btn btn-success" style='font-family: "ar-destine"; color: black;'>
-                        <i class="fa fa-download"></i> Download
-                    </button>
-                    <br>
-                    <br>
-                </p>
-            </div>
-        </form>
-    </div>
-</body>
+                <button type="submit" class="btn btn-success" style='font-family: "ar-destine"; color: black;'>
+                    <i class="fa fa-download"></i> Download
+                </button>
+                <br>
+                <br>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}

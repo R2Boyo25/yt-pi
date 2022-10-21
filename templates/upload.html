@@ -1,34 +1,35 @@
-<head>
-    <title>Upload a local video</title>
-    <link rel="stylesheet" href="/data/main.css">
-    <link rel='stylesheet' href='/data/form.css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+{% extends "maintemplate.html" %}
+{% block head %}
+<title>Upload a local video</title>
+<link rel="stylesheet" href="/data/main.css">
+<link rel='stylesheet' href='/data/form.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
 
-<body style="background-color: {{background}};">
-    <br><a href=/><img src=/data/home.png height=17px /></a>
-    <br>
-    <form method="POST" align='center' style="margin-top: 23%; margin-bottom: 50%;" enctype=multipart/form-data>
-        <div align=center>
-            <p>
-                <br>
-                Title
-                <br>
-                <input type="text" placeholder="Title" name="title" value="{{
+{% block body %}
+<br><a href= /><img src=/data/home.png height=17px /></a>
+<br>
+<form method="POST" align='center' style="margin-top: 23%; margin-bottom: 50%;" enctype=multipart/form-data>
+    <div align=center>
+        <p>
+            <br>
+            Title
+            <br>
+            <input type="text" placeholder="Title" name="title" value="{{
                         request.form.title }}" height=5%>
-                <br>
-                Description
-                <br>
-                <textarea rows="5" cols="60" name="nm" id='text1' placeholder="    Description   " style="resize: none; border-radius: 15px;"></textarea><br>
-                <br>
-                <input type=file name=file>
-                <br>
-                <button type="submit" class="btn btn-success" style='font-family: "ar-destine"; color: black;'>
-                    <i class="fa fa-upload"></i> Upload
-                </button>
-            </p>
-        </div>
-    </form>
-    <br>
-    <br>
-</body>
+            <br>
+            Description
+            <br>
+            <textarea rows="5" cols="60" name="nm" id='text1' placeholder="    Description   " style="resize: none; border-radius: 15px;"></textarea><br>
+            <br>
+            <input type=file name=file>
+            <br>
+            <button type="submit" class="btn btn-success" style='font-family: "ar-destine"; color: black;'>
+                <i class="fa fa-upload"></i> Upload
+            </button>
+        </p>
+    </div>
+</form>
+<br>
+<br>
+{% endblock %}

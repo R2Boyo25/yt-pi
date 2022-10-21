@@ -1,13 +1,14 @@
-<head>
-    <title>Add Video</title>
-    <link rel="stylesheet" href="/data/main.css">
-</head>
+{% extends "maintemplate.html" %}
+{% block head %}
+<title>Add Video</title>
+<link rel="stylesheet" href="/data/main.css">
+{% endblock %}
 
-<body style="background-color: {{background}};">
-    <br><a href=/><img src=/data/home.png height=17px /></a>
-    <div align=center>
-        <button onclick="window.location.href='/add/yt';"><img src=https://www.youtube.com/img/desktop/supported_browsers/yt_logo_rgb_light.png height=20 width=60 alt=YouTube /> </button><br><br>
-        <button onclick="window.location.href='/add/upload';">Upload</button><br><br>
-        <button onclick="window.location.href='/add/mp4/';">Download MP4 to local device</button>
-    </div>
-</body>
+{% block body %}
+<br><a href= /><img src=/data/home.png height=17px /></a>
+<div align=center>
+    <button onclick="window.location.href='/add/yt';"><img src=https://www.youtube.com/img/desktop/supported_browsers/yt_logo_rgb_light.png height=20 width=60 alt=YouTube /> </button><br><br>
+    <button onclick="window.location.href='/add/upload';">Upload</button><br><br>
+    <button onclick="window.location.href='/add/mp4/';">Download MP4 to local device</button>
+</div>
+{% endblock %}

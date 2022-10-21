@@ -1,10 +1,11 @@
-<head>
-    <title>Coming in V{{ ver }}</title>
-</head>
+{% extends "maintemplate.html" %}
+{% block head %}
+<title>Coming in V{{ ver }}</title>
+{% endblock %}
 
-<body style="background-color: {{background}};">
-    <div align=center>
-        <h1>You have found a unmade feature!</h1>
-        <p>This feature will be added in version {{ ver }}</p>
-    </div>
-</body>
+{% block body %}
+<div align=center>
+    <h1>You have found a unmade feature!</h1>
+    <p>This feature will be added in version {{ ver }}</p>
+</div>
+{% endblock %}
