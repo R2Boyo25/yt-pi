@@ -11,7 +11,6 @@
     function myFunction() {
         var input, filter, ul, li, a, i;
         input = document.getElementById("searchbar");
-        input.onkeyup = "myFunction();"
         filter = input.value.toUpperCase();
         ul = document.getElementById("myMenu");
         li = ul.getElementsByTagName("li");
@@ -30,6 +29,8 @@
         parameterList = new URLSearchParams(address);
         return parameterList.get(key);
     }
+
+    document.getElementById("searchbar").onkeyup = myFunction;
 
     console.log(getParameter("q"))
 
