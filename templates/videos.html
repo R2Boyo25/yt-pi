@@ -10,7 +10,8 @@
 <script>
     function myFunction() {
         var input, filter, ul, li, a, i;
-        input = document.getElementById("mySearch");
+        input = document.getElementById("searchbar");
+        input.onkeyup = "myFunction();"
         filter = input.value.toUpperCase();
         ul = document.getElementById("myMenu");
         li = ul.getElementsByTagName("li");
@@ -23,5 +24,19 @@
             }
         }
     }
+
+    function getParameter(key) {
+        address = window.location.search;
+        parameterList = new URLSearchParams(address);
+        return parameterList.get(key);
+    }
+
+    console.log(getParameter("q"))
+
+    if (getParameter("q")) {
+        document.getElementById("searchbar").value = getParameter("q");
+    }
+
+    myFunction();
 </script>
 {% endblock %}

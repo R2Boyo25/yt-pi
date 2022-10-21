@@ -10,9 +10,13 @@
 <body align=center>
     <div class="navbar" align=left>
         <a id="hamburger-menu" onclick="toggleDropdown();"><img src="/data/hamburger-menu.svg" width="34px" height="34px"></img></a>
+        <form id="searchform" action="/videos/" method="get">
+            <input type=text placeholder="Search" id="searchbar" name="q"></input>
+        </form>
+        <a onclick="document.getElementById('searchform').submit();" id="searchbutton"><img src="/data/search.svg"></img></a>
     </div>
     <div class="navmenu" id="navmenu">
-        <a href="/" style="padding-top: 9px;">Home</a>
+        <a href="/">Home</a>
         <a href="/videos">Videos</a>
         <a href="/videos/new">Add Video</a>
         <a href="/settings">Settings</a>

@@ -171,3 +171,24 @@ footer a {
     padding: 0px;
     background-color: #00000000;
 }
+
+#searchbar {
+    margin-top: 8px;
+    height: 38px;
+    width: 250px;
+}
+
+#searchbutton {
+    margin-top: 8px;
+    background: #323232;
+    height: 38px;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+
+#searchbutton img {
+    padding-top: 4px;
+    height: 30px;
+    width: 30px;
+    margin: 0px;
+}

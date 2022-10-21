@@ -59,7 +59,7 @@ def returnData(filename):
 
 @app.route('/videos/')
 def videosList():
-    links = ['<!--This Page Was Auto Generated-->\n<div align=\"center\">\n<br>\n<input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">\n<br><br><ul id="myMenu">']
+    links = ['<!--This Page Was Auto Generated-->\n<div align=\"center\">\n<br>\n<br><br><ul id="myMenu">']
     f = []
 
     for (dirpath, dirnames, filenames) in os.walk(getConfig().get("videofolder")):
