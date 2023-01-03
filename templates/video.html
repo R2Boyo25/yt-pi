@@ -1,16 +1,17 @@
 {% extends "maintemplate.html" %}
 {% block head %}
-
+<title>{{title}}</title>
+<link rel="stylesheet" href="/data/video.css">
 {% endblock %}
 {% block body %}
-<div align=center>
+<div align=center id="videobox">
     <video width="98%" height="90%" controls poster="{{ path }}/thumb" id="videoplayer">
         <source src="{{ path }}" type="video/mp4">
         <source src="{{ path }}" type="video/webm">
     </video>
     <h1>{{ title | safe }}</h1>
     <hr>
-    <p><br>{{ description | safe | urlize(40, true) }}<br></p>
+    <p id="description">{{ description | safe | urlize(40, true) }}<br></p>
 </div>
 
 <script>
