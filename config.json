@@ -1,6 +1,5 @@
 {
     "port": "4215",
     "version": "1.3",
-    "videofolder": "/media/pi/Backups/yt-pi/videos",
-    "background": "gray"
+    "videofolder": "~/Videos/yt-pi"
 }

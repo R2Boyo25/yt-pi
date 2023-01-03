@@ -19,6 +19,8 @@ youtubedl = False
 def getConfig():
     return database.Database("config.json")
 
+def getVideoFolder():
+    return os.path.expanduser(getConfig().get("videofolder"))
 
 def programExists(name):
     """Check whether `name` is on PATH and marked as executable."""
@@ -59,10 +61,10 @@ def returnData(filename):
 
 @app.route('/videos/')
 def videosList():
-    links = ['<!--This Page Was Auto Generated-->\n<div align=\"center\">\n<br>\n<br><br><ul id="myMenu">']
+    links = ['<div align=\"center\">\n<ul id="myMenu">']
     f = []
 
-    for (dirpath, dirnames, filenames) in os.walk(getConfig().get("videofolder")):
+    for (dirpath, dirnames, filenames) in os.walk(getVideoFolder()):
         f.extend(dirnames)
         break
 
@@ -77,10 +79,10 @@ def videosList():
 
 @app.route('/videos/<video>')
 def videoPage(video):
-    for root, dirs, files in os.walk(getConfig().get("videofolder") + '/' + video):
+    for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
         for file in files:
             if file.endswith('.description'):
-                with open(getConfig().get("videofolder") + '/' + video + '/' + file, 'r') as de:
+                with open(getVideoFolder() + '/' + video + '/' + file, 'r') as de:
                     desc = de.read()
 
         try:
@@ -91,7 +93,7 @@ def videoPage(video):
 
         break
 
-    for root, dirs, files in os.walk(getConfig().get("videofolder") + '/' + video):
+    for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
         for file in files:
             if file.endswith('.mp4') or file.endswith('.webm'):
                 return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=desc.replace("\n", "\n<br>"), title=video)
@@ -101,10 +103,10 @@ def videoPage(video):
 
 @app.route('/videos/<video>/thumb')
 def videoPageThumb(video):
-    for root, dirs, files in os.walk(getConfig().get("videofolder") + '/' + video):
+    for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
         for file in files:
             if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.webp') or file.endswith('.jpeg'):
-                return send_from_directory(getConfig().get("videofolder") + "/" + video + "/",
+                return send_from_directory(getVideoFolder() + "/" + video + "/",
                                            file)
 
         break
@@ -114,7 +116,7 @@ def videoPageThumb(video):
 
 @app.route("/vidfile/<folder>/<file>")
 def videourlpagething(folder, file):
-    return send_from_directory(getConfig().get("videofolder") + "/" + folder + "/",
+    return send_from_directory(getVideoFolder() + "/" + folder + "/",
                                file)
 
 
@@ -137,8 +139,8 @@ def downloadYtVideo():
         url = request.form['url']
 
         if url != '':
-            os.system("python3 -m youtube_dl -f best -o \"" + getConfig().get("videofolder") +
-                      "/%(title)s/%(title)s.%(ext)s\"" + " --write-thumbnail --write-description " + url)
+            os.system("python3 -m youtube_dl -f best -o \"" + getVideoFolder() +
+                      "/%(title)s/%(title)s.%(ext)s\"" + " --write-thumbnail --write-description --all-subs --embed-subs " + url)
 
             return redirect('/')
 
@@ -191,13 +193,13 @@ def uploadLocalVideo():
         else:
             filename = secure_filename(file.filename)
 
-            os.mkdir(getConfig().get("videofolder") +
+            os.mkdir(getVideoFolder() +
                      "/" + request.form['title'])
 
-            file.save(os.path.join(getConfig().get("videofolder") +
+            file.save(os.path.join(getVideoFolder() +
                       "/"+request.form['title'], filename))
 
-            with open(getConfig().get("videofolder") + "/"+request.form['title'] + '/' + request.form['title'] + ".description", 'w') as file1:
+            with open(getVideoFolder() + "/"+request.form['title'] + '/' + request.form['title'] + ".description", 'w') as file1:
                 file1.write(request.form['nm'])
 
             return redirect('/videos/{}'.format(request.form['title']))
@@ -240,7 +242,7 @@ if __name__ == "__main__":
             "https://raw.githubusercontent.com/R2Boyo25/yt-pi/master/config.json").text)
 
         if float(currentConfig["version"]) > float(getConfig().get('version')):
-            if not ("/" + ('/'.join(os.path.abspath(getConfig().get("videofolder")).split("/"))) in os.path.abspath("yt-pi.py")):
+            if not ("/" + ('/'.join(os.path.abspath(getVideoFolder()).split("/"))) in os.path.abspath("yt-pi.py")):
                 os.chdir("./..")
 
                 os.system("rm -rf yt-pi")

@@ -55,7 +55,5 @@ body {
 }
 
 #myMenu li a:hover {
-    /*background-color: #eee;*/
     background-color: E5E5E5;
-    border-radius: 20px;
 }
