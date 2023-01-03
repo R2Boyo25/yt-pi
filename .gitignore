@@ -2,3 +2,4 @@ __pycache__
 *.mp*
 venv
 config.json
+#*#

@@ -19,8 +19,10 @@ youtubedl = False
 def getConfig():
     return database.Database("config.json")
 
+
 def getVideoFolder():
     return os.path.expanduser(getConfig().get("videofolder"))
+
 
 def programExists(name):
     """Check whether `name` is on PATH and marked as executable."""
@@ -50,7 +52,7 @@ def homePage():
     except Exception as e:
         popup = None
 
-    return render_template('homePage.html', version=getConfig().get("version"), popup=popup)
+    return render_template('homePage.html', version=getConfig().get("version"), popup=popup, videos = os.listdir(getVideoFolder()))
 
 
 @app.route('/data/<path:filename>')
@@ -61,13 +63,7 @@ def returnData(filename):
 
 @app.route('/videos/')
 def videosList():
-    f = []
-
-    for (dirpath, dirnames, filenames) in os.walk(getVideoFolder()):
-        f.extend(dirnames)
-        break
-
-    return render_template('videos.html', videos = f)
+    return render_template('videos.html', videos = os.listdir(getVideoFolder()))
 
 
 @app.route('/videos/<video>')
