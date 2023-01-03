@@ -38,13 +38,13 @@ body {
 }
 
 /* Style the navigation menu inside the left column */
-#myMenu {
+#videoList {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-#myMenu li a {
+#videoList li a {
     padding: 12px;
     text-decoration: none;
     color: black;
@@ -54,6 +54,6 @@ body {
     border-radius: 6px;
 }
 
-#myMenu li a:hover {
+#videoList li a:hover {
     background-color: E5E5E5;
 }

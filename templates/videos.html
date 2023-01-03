@@ -6,13 +6,27 @@
 {% endblock %}
 
 {% block body %}
-{{ links | safe }}
+<!--{{ links | safe }}-->
+<div align="center">
+  <ul id="videoList">
+    {% for video in videos %}
+    <li>
+      <a align="center" href="/videos/{{video}}">
+        <img src="/videos/{{video}}/thumb" height=12% width=15% />
+        <br>
+        <b>{{video}}</b>
+      </a>
+      <br>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 <script>
     function myFunction() {
         var input, filter, ul, li, a, i;
         input = document.getElementById("searchbar");
         filter = input.value.toUpperCase();
-        ul = document.getElementById("myMenu");
+        ul = document.getElementById("videoList");
         li = ul.getElementsByTagName("li");
         for (i = 0; i < li.length; i++) {
             a = li[i].getElementsByTagName("a")[0];

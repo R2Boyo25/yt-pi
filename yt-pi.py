@@ -61,20 +61,13 @@ def returnData(filename):
 
 @app.route('/videos/')
 def videosList():
-    links = ['<div align=\"center\">\n<ul id="myMenu">']
     f = []
 
     for (dirpath, dirnames, filenames) in os.walk(getVideoFolder()):
         f.extend(dirnames)
         break
 
-    for thing in f:
-        links.append("\n  <li><a align='center' href='{}'><img src='{}' height=12% width=15% /><br><b>{}</b></a><br></li>".format(
-            '/videos/'+thing.replace("'", "%27").replace(" ", "%20"), '/videos/'+thing.replace("'", "%27").replace(" ", "%20")+'/thumb', thing))
-
-    links.append('</ul></div>')
-
-    return render_template('videos.html', links=''.join(links))
+    return render_template('videos.html', videos = f)
 
 
 @app.route('/videos/<video>')
