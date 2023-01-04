@@ -15,6 +15,10 @@ app.config['DataFolder'] = "/".join(
 app.secret_key = os.urandom(24)
 youtubedl = False
 
+@app.template_filter("clean_video_name")
+def clean_video_name(video_name: str) -> str:
+    return video_name.replace("_", " ").replace("  ", " ").replace("  ", " ")
+
 
 def getConfig():
     return database.Database("config.json")
@@ -22,6 +26,11 @@ def getConfig():
 
 def getVideoFolder():
     return os.path.expanduser(getConfig().get("videofolder"))
+
+
+def getVideos():
+    videofolder = getVideoFolder()
+    return sorted(os.listdir(videofolder), key=lambda x: -os.path.getmtime(videofolder + "/" + x))
 
 
 def programExists(name):
@@ -52,7 +61,7 @@ def homePage():
     except Exception as e:
         popup = None
 
-    return render_template('homePage.html', version=getConfig().get("version"), popup=popup, videos = os.listdir(getVideoFolder()))
+    return render_template('homePage.html', version=getConfig().get("version"), popup=popup, videos = getVideos()[:18])
 
 
 @app.route('/data/<path:filename>')
@@ -63,7 +72,7 @@ def returnData(filename):
 
 @app.route('/videos/')
 def videosList():
-    return render_template('videos.html', videos = os.listdir(getVideoFolder()))
+    return render_template('videos.html', videos = getVideos())
 
 
 @app.route('/videos/<video>')

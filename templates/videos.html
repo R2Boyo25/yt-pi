@@ -15,12 +15,11 @@
         <div class="video-block">
           <img src="/videos/{{video}}/thumb"/>
           <span>
-            <h1><b>{{video.replace("_", " ").replace("  ", " ").replace("  ", " ")}}</b><h1>
+            <h1><b>{{video | clean_video_name}}</b></h1>
           </span>
         </div>
       </a>
     </li>
-    <!--<hr>-->
     {% endfor %}
   </ul>
 </div>

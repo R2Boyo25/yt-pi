@@ -1,0 +1,35 @@
+#videoList {
+    list-style-type: none;
+    padding: 0;
+    margin: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#videoList li a {
+    width: 30%;
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px;
+}
+
+#videoList .video-block {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#videoList .video-block img {
+    width: calc(30vw - 20px);
+    margin-right: 10%;
+    background-color: white;
+    border-radius: 15px;
+}

@@ -1,8 +1,26 @@
 {% extends "maintemplate.html" %}
 {% block head %}
+<link rel="stylesheet" href="/data/home.css">
 <title>YT-Pi Home</title>
 {% endblock %}
 {% block body %}
+<div align="center">
+  <ul id="videoList">
+    {% for video in videos %}
+    <li>
+      <a align="center" href="/videos/{{video}}">
+        <div class="video-block">
+          <img src="/videos/{{video}}/thumb"/>
+          <span>
+            <p><b>{{video | clean_video_name}}</b></p>
+          </span>
+        </div>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
 <script>
     // Get all elements with class="closebtn"
     var close = document.getElementsByClassName("closebtn");
