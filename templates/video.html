@@ -16,10 +16,12 @@
   </div>
   <div id="videolist">
     {% for video in videos %}
+    {% if video != title %}
     <a href="/videos/{{video}}">
       <img src="/videos/{{video}}/thumb"/>
       <span>{{ video | clean_video_name }}</span>
     </a>
+    {% endif %}
     {% endfor %}
   </div>
 </div>
