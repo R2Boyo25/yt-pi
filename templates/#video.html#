@@ -4,14 +4,24 @@
 <link rel="stylesheet" href="/data/video.css">
 {% endblock %}
 {% block body %}
-<div align=center id="videobox">
-    <video width="98%" height="90%" controls poster="{{ path }}/thumb" id="videoplayer">
-        <source src="{{ path }}" type="video/mp4">
+<div id="videopage">
+  <div align=center id="videobox">
+    <video width="98%" height="90%" controls poster="/videos/{{ path.lstrip('/vidfile').split('/')[0] }}/thumb" id="videoplayer">
+      <source src="{{ path }}" type="video/mp4">
         <source src="{{ path }}" type="video/webm">
     </video>
     <h1>{{ title | clean_video_name | safe }}</h1>
     <hr>
     <p id="description">{{ description | safe | urlize(40, true) }}<br></p>
+  </div>
+  <div id="videolist">
+    {% for video in videos %}
+    <a href="/videos/video">
+      <img src="/videos/{{video}}/thumb"/>
+      <span>{{video | clean_video_name}}</span>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 
 <script>

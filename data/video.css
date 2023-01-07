@@ -1,3 +1,44 @@
 #description a {
     color: #86efac;
 }
+
+#videopage {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    --videolist-size: 40vw;
+}
+
+#videobox {
+    width: calc(100% - 8px - var(--videolist-size));
+    margin-right: 8px;
+}
+
+#videolist {
+    width: var(--videolist-size);
+}
+
+#videolist > a {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#videolist > a > img {
+    width: 40%;
+    margin-right: 5%;
+    border-radius: 0.5vw;
+}
+
+#videolist > a > span {
+    font-size: 1rem;
+    line-height: 1.2rem;
+    font-weight: 500;
+}

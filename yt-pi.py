@@ -94,7 +94,7 @@ def videoPage(video):
     for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
         for file in files:
             if file.endswith('.mp4') or file.endswith('.webm'):
-                return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=desc.replace("\n", "\n<br>"), title=video)
+                return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=desc.replace("\n", "\n<br>"), title=video, videos = getVideos()[:18])
 
         break
 
@@ -103,7 +103,7 @@ def videoPage(video):
 def videoPageThumb(video):
     for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
         for file in files:
-            if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.webp') or file.endswith('.jpeg'):
+            if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.webp') or file.endswith('.jpeg') or file.endswith(".svg"):
                 return send_from_directory(getVideoFolder() + "/" + video + "/",
                                            file)
 
