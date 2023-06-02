@@ -75,28 +75,27 @@ def videosList():
     return render_template('videos.html', videos = getVideos())
 
 
+def getDescription(video_name: str) -> str:
+    for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
+        for file in files:
+            if file.endswith('.description'):
+                with open(root + '/' + file, 'r') as de:
+                    return de.read().replace("\n", "\n<br>")
+
+    return ''
+
+
 @app.route('/videos/<video>')
 def videoPage(video):
     for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
         for file in files:
-            if file.endswith('.description'):
-                with open(getVideoFolder() + '/' + video + '/' + file, 'r') as de:
-                    desc = de.read()
-
-        try:
-            desc
-
-        except:
-            desc = ''
-
-        break
-
-    for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
-        for file in files:
             if file.endswith('.mp4') or file.endswith('.webm'):
-                return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=desc.replace("\n", "\n<br>"), title=video, videos = getVideos()[:18])
+                # perhaps switch to urllib.parse.quote() ?
+                return render_template("video.html", path='/vidfile/' + video.replace("'", "%27") + "/" + file, description=getDescription(video), title=video, videos = getVideos()[:18])
 
         break
+
+    return render_template("unfinished.html", title=video)
 
 
 @app.route('/videos/<video>/thumb')

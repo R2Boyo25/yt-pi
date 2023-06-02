@@ -1,0 +1,11 @@
+{% extends "maintemplate.html" %}
+{% block head %}
+<title>{{title | clean_video_name}}</title>
+{% endblock %}
+{% block body %}
+<div class="center" style="text-align: center;">
+  <h1>The video <i>{{title | clean_video_name}}</i> has not yet completed being uploaded/downloaded to the server.</h1>
+  <p>Of course, the video file may have been removed somehow or is missing.</p>
+  <a href="/videos/" style="text-decoration: underline;">Check out some of these videos while you wait.</a>
+</div>
+{% endblock %}
