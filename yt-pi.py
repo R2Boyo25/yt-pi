@@ -76,7 +76,7 @@ def videosList():
 
 
 def getDescription(video_name: str) -> str:
-    for root, dirs, files in os.walk(getVideoFolder() + '/' + video):
+    for root, dirs, files in os.walk(getVideoFolder() + '/' + video_name):
         for file in files:
             if file.endswith('.description'):
                 with open(root + '/' + file, 'r') as de:
@@ -130,13 +130,13 @@ def addVideoPage():
 @app.route('/add/yt/', methods=['GET', 'POST'])
 def downloadYtVideo():
     if not youtubedl:
-        return showError('youtube-dl is not installed or is not on your PATH.', request.url)
+        return showError('yt-dlp is not installed or is not on your PATH.', request.url)
 
     if request.method == 'POST':
         url = request.form['url']
 
         if url != '':
-            os.system("python3 -m youtube_dl -f best -o \"" + getVideoFolder() +
+            os.system("python3 -m yt_dlp -f bestvideo+bestaudio -o \"" + getVideoFolder() +
                       "/%(title)s/%(title)s.%(ext)s\"" + " --write-thumbnail --write-description --all-subs --embed-subs " + url)
 
             return redirect('/')
@@ -151,7 +151,7 @@ def downloadYtVideo():
 @app.route('/add/mp4/', methods=['GET', 'POST'])
 def downloadYtMP4():
     if not youtubedl:
-        return showError('youtube-dl is not installed or is not on your PATH.', request.url)
+        return showError('yt-dlp is not installed or is not on your PATH.', request.url)
 
     if request.method == 'POST':
         url = request.form['url']
@@ -160,7 +160,7 @@ def downloadYtMP4():
             if os.path.exists("download.mp4"):
                 os.rm("download.mp4")
 
-            os.system("python3 -m youtube_dl -f best -o " +
+            os.system("python3 -m yt_dlp -f best -o " +
                       "download0.mp4 " + url)
 
             return send_from_directory(".",
@@ -251,6 +251,6 @@ if __name__ == "__main__":
     except Exception:
         print("Cannot connect to github - update checker unavailable.")
 
-    youtubedl = not os.system("python3 -m pip freeze | grep youtube-dl")
+    youtubedl = not os.system("python3 -m pip freeze | grep yt-dlp")
 
     app.run(debug=True, host='0.0.0.0', port=getConfig().get("port"))
