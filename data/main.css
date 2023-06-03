@@ -97,13 +97,14 @@ body {
 
 .navbar {
     height: 50px;
-    width: 100vw;
+    width: 100%;
     position: fixed;
     top: 0px;
     left: 0px;
     background-color: #202020;
     padding: 8px;
     display: flex;
+    justify-content: space-between;
 }
 
 .navbar a {
@@ -195,4 +196,13 @@ footer a {
     height: 30px;
     width: 30px;
     margin: 0px;
+}
+
+.leftnav, .rightnav {
+    display: flex;
+}
+
+.rightnav {
+    padding-right: 16px;
+    align-items: center;
 }

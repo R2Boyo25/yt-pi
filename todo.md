@@ -1,0 +1,1 @@
+- [ ] Rename to Trajectio (latin for "to shift")

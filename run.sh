@@ -12,7 +12,7 @@ else
     fi
     source venv/bin/activate
     if [ ! -d venv/lib/*/site-packages/flask ]; then
-        pip3 install -r requirements.txt | grep -v 'already satisfied'
+        python3 -m pip install -r requirements.txt | grep -v 'already satisfied'
     fi
     python3 yt-pi.py
 fi

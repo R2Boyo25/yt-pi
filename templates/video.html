@@ -3,12 +3,18 @@
 <title>{{title | clean_video_name}}</title>
 <link rel="stylesheet" href="/data/video.css">
 {% endblock %}
+
+{% block nav %}
+<input id="shuffle" name="shuffle" type="checkbox" onclick="onShuffleClicked(this.checked);"/>
+<label for="shuffle">Shuffle/Autoplay</label>
+{% endblock %}
+
 {% block body %}
 <div id="videopage">
   <div align=center id="videobox">
-    <video width="98%" height="90%" controls poster="/videos/{{ path.lstrip('/vidfile').split('/')[0] }}/thumb" id="videoplayer">
+    <video width="98%" height="90%" controls poster="/videos/{{ path.lstrip('/vidfile').split('/')[0] }}/thumb" id="videoplayer" onended="shuffleVideo();">
       <source src="{{ path }}" type="video/mp4">
-        <source src="{{ path }}" type="video/webm">
+      <source src="{{ path }}" type="video/webm">
     </video>
     <h1>{{ title | clean_video_name | safe }}</h1>
     <hr>
@@ -25,16 +31,32 @@
     {% endfor %}
   </div>
 </div>
-
+<script src="/data/cookie.js"></script>
 <script>
-    function getParameter(key) {
-        address = window.location.search;
-        parameterList = new URLSearchParams(address);
-        return parameterList.get(key);
-    }
+  function getParameter(key) {
+      address = window.location.search;
+      parameterList = new URLSearchParams(address);
+      return parameterList.get(key);
+  }
 
-    if (getParameter("t")) {
-        document.getElementById("videoplayer").currentTime = getParameter("t");
-    }
+  if (getParameter("t")) {
+      document.getElementById("videoplayer").currentTime = getParameter("t");
+  }
+
+  if (getCookie("shuffle", "false") === "true") {
+      document.getElementById("shuffle").checked = true;
+  }
+  
+  function shuffleVideo() {
+      console.log("shuffle = " + getCookie("shuffle", "false") === "true");
+      if (getCookie("shuffle", "false") === "true") {
+          window.location.href = "/random_video?from=" + "{{ title }}";
+      }
+  }
+
+  function onShuffleClicked(value) {
+      setCookie("shuffle", value ? "true" : "false");
+  }
 </script>
 {% endblock %}
+

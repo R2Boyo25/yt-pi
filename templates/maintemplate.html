@@ -1,38 +1,41 @@
 <html>
-
-<head>
+  <head>
     <link rel="stylesheet" href="/data/main.css">
     {% block head %}
     <title>YT-Pi</title>
     {% endblock %}
-</head>
-
-<body>
+  </head>
+  <body>
     <div class="navbar" align=left>
+      <div class="leftnav">
         <a id="hamburger-menu" onclick="toggleDropdown();"><img src="/data/hamburger-menu.svg" width="34px" height="34px"></img></a>
         <form id="searchform" action="/videos/" method="get">
-            <input type=text placeholder="Search" id="searchbar" name="q"></input>
+          <input type=text placeholder="Search" id="searchbar" name="q"></input>
         </form>
         <a onclick="document.getElementById('searchform').submit();" id="searchbutton"><img src="/data/search.svg"></img></a>
+      </div>
+      <div class="rightnav">
+        {% block nav %}
+        {% endblock %}
+      </div>
     </div>
     <div class="navmenu" id="navmenu">
-        <a href="/">Home</a>
-        <a href="/videos">Videos</a>
-        <a href="/add/">Add Video</a>
-        <a href="/settings">Settings</a>
+      <a href="/">Home</a>
+      <a href="/videos">Videos</a>
+      <a href="/add/">Add Video</a>
+      <a href="/settings">Settings</a>
     </div>
     <script src="/data/dropdown.js"></script>
     <div class="main">
-        {% block body %}
-        {% endblock %}
+      {% block body %}
+      {% endblock %}
     </div>
     <footer>
-        <a href="https://github.com/r2boyo25/yt-pi">Source Code</a>
-        <a href="https://github.com/r2boyo25/yt-pi/issues/new/choose">Bug Reports/Feature Requests</a>
-        <a href="/credits">Credits</a>
-        {% block footer %}
-        {% endblock %}
+      <a href="https://github.com/r2boyo25/yt-pi">Source Code</a>
+      <a href="https://github.com/r2boyo25/yt-pi/issues/new/choose">Bug Reports/Feature Requests</a>
+      <a href="/credits">Credits</a>
+      {% block footer %}
+      {% endblock %}
     </footer>
-</body>
-
+  </body>
 </html>

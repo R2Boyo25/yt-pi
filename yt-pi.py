@@ -223,6 +223,14 @@ def settingsPage():
         return render_template("settings.html", config=config)
 
 
+@app.route("/random_video", methods=['GET'])
+def randomVideo():
+    if from_video := request.args.get('from'):
+        return redirect("/videos/" + random.choice(list(filter(lambda x: x != from_video, getVideos()))))
+
+    return redirect("/videos/" + random.choice(getVideos()))
+    
+
 @app.errorhandler(404)
 def page_not_found(e):
     return showError(e, url_for("homePage"), "404: Not Found", "Feature you want added? Submit a request at <a href=https://github.com/r2boyo25/yt-pi/issues/new/choose>my GitHub page. </a>", errorcode=404)
