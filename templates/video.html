@@ -57,6 +57,60 @@
   function onShuffleClicked(value) {
       setCookie("shuffle", value ? "true" : "false");
   }
+
+  videoplayer = document.getElementById("videoplayer");
+  document.addEventListener("keydown", (e) => {
+      if (document.getElementById("searchbar") === document.activeElement) {
+          return;
+      }
+      
+      if (!e.repeat) {
+          if (e.key == "ArrowRight") {
+              videoplayer.currentTime += 5;
+          } else if (e.key == "ArrowLeft") {
+              videoplayer.currentTime -= 5;
+          } else if (e.key == "f") {
+              if (document.fullscreenElement != videoplayer) {
+                  if (videoplayer.requestFullscreen)
+                      videoplayer.requestFullscreen();
+                  else if (videoplayer.msRequestFullscreen)
+                      videoplayer.msRequestFullscreen();
+                  else if (videoplayer.mozRequestFullScreen)
+                      videoplayer.mozRequestFullScreen();
+                  else if (videoplayer.webkitRequestFullscreen)
+                      videoplayer.webkitRequestFullscreen();
+              } else {        
+                  if (videoplayer.exitFullscreen) {
+                      videoplayer.exitFullscreen(); // Standard
+                  } else if (videoplayer.webkitExitFullscreen) {
+                      videoplayer.webkitExitFullscreen(); // Blink
+                  } else if (videoplayer.mozCancelFullScreen) {
+                      videoplayer.mozCancelFullScreen(); // Gecko
+                  } else if (videoplayer.msExitFullscreen) {
+                      videoplayer.msExitFullscreen(); // Old IE
+                  }
+              }
+          } else if (e.key == " ") {
+              if (videoplayer === document.activeElement) {
+                  return;
+              }
+              
+              if (videoplayer.paused) {
+                  videoplayer.play();
+              } else {
+                  videoplayer.pause();
+              }
+
+              e.preventDefault();
+          }
+      } else {
+          if (e.key == "ArrowRight") {
+              videoplayer.currentTime += 0.5;
+          } else if (e.key == "ArrowLeft") {
+              videoplayer.currentTime -= 0.5;
+          }
+      }
+  });
 </script>
 {% endblock %}
 
